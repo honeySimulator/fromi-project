@@ -6,6 +6,8 @@ export async function createCampaign(channel, message, keyboardType, buttons) {
     const data = {channel, message, keyboardType, buttons}
     if (keyboardType !== null) {
         data.keyboardType = keyboardType;
+    } else {
+        data.keyboardType = ' ';
     }
     try {
         const campaign = await prisma.campaign.create({

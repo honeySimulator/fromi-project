@@ -147,6 +147,8 @@ export const useCampaignStore = defineStore({
                     })
                 })
                 console.log(result);
+                this.errorMessage = 'Данные успешно записаны в БД!';
+
             } catch (error) {
                 console.error('Ошибка при создании записи:', error);
             }
