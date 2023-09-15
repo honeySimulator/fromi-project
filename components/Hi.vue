@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
 
-    <!-- Левая часть страницы: Список каналов связи -->
+<!--    Список каналов связи-->
     <div class="w-1/4 p-4">
       <h2 class="text-lg font-semibold mb-2">Выберите каналы связи</h2>
       <ul>
@@ -21,7 +21,7 @@
         Выбранные каналы связи по очередности: {{ selectedChannels.join(', ') }}
       </div>
     </div>
-    <!-- Правая часть страницы: Форма для выбранного канала -->
+<!--     Форма для выбранного канала -->
     <div class="w-3/4 p-4 flex flex-wrap ">
       <channel-form
           v-for="(channel, index) in selectedChannels"
@@ -44,7 +44,7 @@
 import ChannelForm from '../components/chanelForm.vue';
 import Result from '../components/result.vue';
 import {useCampaignStore} from "../stores/campaign";
-import ErrorModal from '../components/ErrorModal.vue'; // Подставьте правильный путь к компоненту
+import ErrorModal from '../components/ErrorModal.vue';
 
 
 export default {
@@ -58,7 +58,6 @@ export default {
     return {
       channels: ['Telegram', 'Whatsapp', 'VK', 'СМС'],
       selectedChannels: [],
-      // formData: {}, // Объект для хранения данных каждой формы
 
     };
   },
@@ -77,28 +76,22 @@ export default {
         console.log(`Нажата кнопка "Сохранить" `);
         const campaignStore = useCampaignStore();
         console.log(`Выбраны ${this.selectedChannels} `);
-        // Перебираем данные для каждой формы и вызываем addChannelData
-        let hasError = false; // Флаг для отслеживания ошибок
+        // Флаг для отслеживания ошибок
 
+        let hasError = false;
+
+        // Перебираем данные из каждой формы
         this.$nextTick(() => {
           this.selectedChannels.forEach((channel) => {
             const form = document.getElementById(channel);
             if (form) {
               const formData = new FormData(form);
               const message = formData.get('message');
-              const buttonType = formData.getAll('buttonType'); // Предполагается, что у вас есть поле с типом кнопки, где индекс соответствует кнопке
-              const keyboardType = formData.get('keyboardType')
-              const buttonText = formData.getAll('button-label');
-              const buttons = buttonType.map((type, index) => [type, buttonText[index]]);
+              const buttonType = formData.getAll('buttonType')|| null; // Предполагается, что у вас есть поле с типом кнопки, где индекс соответствует кнопке
+              const keyboardType = formData.get('keyboardType') || null;
+              const buttonText = formData.getAll('button-label') || null;
+              const buttons = buttonType.map((type, index) => [type, buttonText[index]]) || null;
 
-              // Выводим данные в консоль
-              console.log(`Канал: ${channel}`);
-              console.log(`Сообщение: ${message}`);
-              console.log(`Тип клавиатуры:`, keyboardType);
-              console.log(`Кнопки:`, buttons);
-              console.log(`Количество кнопок:`, buttons.length);
-
-              // Добавляем данные в хранилище
               campaignStore.checkData({
                 channel,
                 message,
@@ -106,7 +99,7 @@ export default {
                 buttons,
               });
               if (campaignStore.errorMessage !== null) {
-                hasError = true; // Устанавливаем флаг ошибки
+                hasError = true; // флаг ошибки
               }
             }
           });
@@ -123,7 +116,7 @@ export default {
               const buttonText = formData.getAll('button-label');
               const buttons = buttonType.map((type, index) => [type, buttonText[index]]);
 
-              // Добавляем данные в хранилище
+              // Добавляем данные в хранилище pinia
               campaignStore.addChannelData({
                 channel,
                 message,

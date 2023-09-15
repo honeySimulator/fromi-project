@@ -1,10 +1,11 @@
 // store/campaign.js
 import { defineStore } from 'pinia';
 
+
 export const useCampaignStore = defineStore({
     id: 'campaign',
     state: () => ({
-        channelsData: [], // Здесь можно хранить данные для каждого канала
+        channelsData: [], // Данные для каждого канала
         errorMessage: null, // Состояние для сообщения об ошибке
 
     }),
@@ -131,9 +132,24 @@ export const useCampaignStore = defineStore({
                 }
             }
         },
-        addChannelData({ channel, message, keyboardType, buttons }) {
+        async addChannelData({channel, message, keyboardType, buttons}) {
             // Добавляем данные кампании в хранилище
-            this.channelsData.push({ channel, message, keyboardType, buttons });
+            this.channelsData.push({channel, message, keyboardType, buttons});
+            try {
+                console.log(`${channel}`)
+                const { data: result } = await useFetch('/api/campaign/create.campaign', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        channel: channel,
+                        message: message,
+                        keyboardType: keyboardType,
+                        buttons: buttons,
+                    })
+                })
+                console.log(result);
+            } catch (error) {
+                console.error('Ошибка при создании записи:', error);
+            }
         },
         clearError() {
             // Метод для очистки сообщения об ошибке

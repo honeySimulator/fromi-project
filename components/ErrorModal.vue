@@ -23,5 +23,5 @@ export default {
 </script>
 
 <style scoped>
-/* Стили для модального окна можно добавить здесь, используя классы Tailwind CSS */
+
 </style>

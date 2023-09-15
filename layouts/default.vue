@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="p-20 text-center">Layout: default</p>
+    <p class="p-20 text-center"></p>
     <slot />
   </div>
 </template>

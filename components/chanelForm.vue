@@ -1,6 +1,6 @@
 <template>
+<!--  Форма для каналов связи, которая подстраивается под ограничения-->
   <div>
-    <!-- Форма для выбранного канала -->
     <h2 class="text-lg font-semibold mb-2">{{ channel }}</h2>
     <form :id="channel">
       <div class="mb-4">
@@ -156,7 +156,6 @@ export default {
   },
   computed: {
     formId() {
-      // Генерируем уникальный id на основе канала
       return `form_${this.channel}`;
     },
   },
@@ -168,7 +167,6 @@ export default {
       this.buttons.splice(index, 1);
     },
     resetButtons() {
-      // Сбрасываем кнопки при изменении типа клавиатуры
       this.buttons = [{ label: "", type: "quick_response", url: "" }];
     },
     submitForm() {
@@ -176,7 +174,6 @@ export default {
       console.log(`Сообщение: ${this.message}`);
       console.log(`Кнопки:`, this.buttons);
 
-      // Вызываем функцию submit из родительского компонента
       this.$emit("submit", {
         channel: this.channel,
         message: this.message,

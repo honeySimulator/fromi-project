@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Campaign Data</h1>
+<!--    Если данные корректны, то они отобразятся в хранилище pinia-->
     <ul>
       <li v-for="(item, index) in campaignData" :key="index">{{ item }}</li>
     </ul>
@@ -8,7 +9,7 @@
 </template>
 
 <script>
-import { useCampaignStore } from '~/stores/campaign'; // Путь к вашему store
+import { useCampaignStore } from '~/stores/campaign';
 
 export default {
   data() {
@@ -17,7 +18,6 @@ export default {
     };
   },
   created() {
-    // Получаем данные из Pinia store и сохраняем их в компоненте
     this.campaignData = useCampaignStore().channelsData;
   },
   name: "result"

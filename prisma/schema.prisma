@@ -8,13 +8,13 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgres://honey:1PQKBimEa0HSdf6Rqpkv1wW8W92Igzek@dpg-ck1mjuo21fec73dp00qg-a.frankfurt-postgres.render.com/honey_qd3x"
 }
 
 model Campaign {
   id          Int      @id @default(autoincrement())
   channel     String
   message     String
-  keyboardType String
-  buttons     Json[]
+  keyboardType String?
+  buttons     String[]
 }
